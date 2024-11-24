@@ -1,18 +1,22 @@
-use fltk::app;
+use fltk::app::App;
+use fltk::prelude::WidgetBase;
 use fltk::window::Window;
 use crate::frontend::Browser;
 use crate::server::init_server;
 
 mod frontend;
 mod server;
+mod dom_tree;
+mod parse;
 
 fn main() {
-    init_server();
+
     let mut browser = Browser{
-        app: app::App::default(),
-        window: Window::default(),
+        app: App::default(),
+        window: Window::new(900, 450, 800, 600, "RustNet"),
     };
 
-    // browser.init_browser();
+    browser.init_browser();
+    init_server();
 }
 
