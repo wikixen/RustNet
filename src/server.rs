@@ -29,7 +29,7 @@ impl URI {
     }
 
     // init_server makes a single-threaded TCP server with the URL provided
-    pub fn init_server(&self) {
+    pub fn init_server(&self) -> &[u8] {
         let mut stream = TcpStream::connect(self.host.as_str().to_owned()).unwrap();
         let request = format!("GET {} HTTP/1.1\r\nHost: {}\r\n\r\n", self.path, self.host);
         stream.write(request.as_bytes()).unwrap();
@@ -52,6 +52,20 @@ impl URI {
         assert!(!response_headers.contains_key("transfer-encoding") && !response_headers.contains_key("content-encoding"));
 
         let content = response.as_bytes();
-        println!("{:?}", content);
+        content
+    }
+}
+
+// parse_body parses the html body
+pub fn parse_body(body: String) {
+    let mut in_tag = false;
+    for char in body.chars() {
+        if char == '<' {
+            in_tag == true;
+        } else if char == '>' {
+            in_tag = false;
+        } else if !in_tag {
+            print!("{}", char);
+        }
     }
 }

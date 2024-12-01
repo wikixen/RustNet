@@ -6,8 +6,6 @@ use crate::server::{URI};
 
 mod frontend;
 mod server;
-mod dom_tree;
-mod parse;
 mod input;
 
 fn main() {
@@ -22,6 +20,7 @@ fn main() {
         path: "".to_string(),
         scheme: "".to_string(),
     };
+
     uri.parse_uri(url);
     uri.init_server();
     browser.init_browser();
