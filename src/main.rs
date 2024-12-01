@@ -22,7 +22,8 @@ fn main() {
         path: "".to_string(),
         scheme: "".to_string(),
     };
-    uri.init_server(url.parse().unwrap());
+    uri.parse_uri(url);
+    uri.init_server();
     browser.init_browser();
 }
 
